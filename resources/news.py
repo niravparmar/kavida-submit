@@ -74,7 +74,15 @@ class NewsList(Resource):
                     }
                 }, 200
             else:
-                raise ValueError()
+                return {
+                       "meta": {
+                           "statusCode": 42,
+                           "messageClient": "Validation error",
+                           "messageServer": "string",
+                           "errorDetail": "string"
+                       }, "data": {},
+                       "pagination": {}
+                   }, 400
         except:
             return {
                        "meta": {
@@ -121,7 +129,15 @@ class AddNews(Resource):
                        }, 200
 
             except:
-                raise ValueError()
+                return {
+                       "meta": {
+                           "statusCode": 42,
+                           "messageClient": "Validation error",
+                           "messageServer": "string",
+                           "errorDetail": "string"
+                       }, "data": {},
+                       "pagination": {}
+                   }, 400
 
         else:
             return {
