@@ -87,6 +87,10 @@ class CategorySchema(ModelSchema):
     category_name = fields.String(required=True)
     news_table_id = fields.Number(required=True)
 
+@app.route("/", methods=[ 'GET'])
+def Home():
+    return jsonify({"message": "MySql Kavida Testing Code"}), 200
+
 
 @app.route("/overview/news", methods=['POST', 'GET'])
 def NewsApi():

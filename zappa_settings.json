@@ -1,5 +1,5 @@
 {
-    "dev": {
+    "sql": {
         "app_function": "app.app",
         "aws_region": "us-east-2",
         "profile_name": "default",
