@@ -147,6 +147,7 @@ def NewsApi():
                 }, "data": {},
                 "pagination": {}
             }), 400
+
     else:
         try:
             data = {
@@ -190,32 +191,23 @@ def NewsApi():
                     News.severity <= severityfinal[1],
                 )
 
-                news_list = []
-                for newslist in result:
-                    news_list.append({
-                        "news_table_id" : newslist['news_table_id'],
-                        "title" : newslist['title'],
-                        "timestamp" : newslist['timestamp'],
-                        "reliability" : newslist['reliability'],
-                        "severity" : newslist['severity'],
-                        "summary" : newslist['summary'],
-                        "newsLink" : newslist['newsLink']
-                    })
-
-                print(news_list[0].title)
-
-                    # print(newslist.title)
-
-                # print(response)
+                news_schema = NewsSchema(many=True)
+                news_list = news_schema.dump(result)
+                totaldata = len(news_list)
+                totalpage = math.ceil(totaldata / int(data['limit']))
 
                 return jsonify({
                     "meta": {
-                        "statusCode": 42,
-                        "messageClient": "Validation error",
+                        "statusCode": 20,
+                        "messageClient": "string",
                         "messageServer": "string",
                         "errorDetail": "string"
-                    }, "data": result,
-                    "pagination": {}
+                    },
+                    "data": news_list,
+                    "pagination": {
+                        "totalData": totaldata,
+                        "totalPage": totalpage
+                    }
                 }), 200
 
             else:
@@ -229,4 +221,4 @@ def NewsApi():
                     "errorDetail": "string"
                 }, "data": {},
                 "pagination": {}
-            }), 200
+            }), 400
